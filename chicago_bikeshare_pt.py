@@ -3,7 +3,6 @@
 # Começando com os imports
 import csv
 import matplotlib.pyplot as plt
-import statistics
 
 # Vamos ler os dados como uma lista
 print("Lendo o documento...")
@@ -33,7 +32,7 @@ input("Aperte Enter para continuar...")
 print("\n\nTAREFA 1: Imprimindo as primeiras 20 amostras")
 for i in range(0,20):
     print("Linha {}:\n".format(i+1))
-    for key in data_list[i].keys():
+    for key in data_list[i].keys(): #Usar a lista de chaves para imprimir todos os pares chaves:valores.
         print("{}:{}".format(key,data_list[i][str(key)]))
     print('\n')
 # Vamos mudar o data_list para remover o cabeçalho dele.
@@ -63,6 +62,15 @@ input("Aperte Enter para continuar...")
 # TAREFA 3
 # TODO: Crie uma função para adicionar as colunas(features) de uma lista em outra lista, na mesma ordem
 def column_to_list(data, index):
+    """Coloca todos os valores de umca coluna em uma lista
+
+    ENTRADA:
+    data: todas as entradas(ou linhas) no formato lista de dicionarios
+    index: especifica a coluna que se deseja pegar os valores
+
+    SAÍDA:
+    column_list: lista com todos os valores da coluna.
+    """
     column_list = []
     column_name = []
     for key in data[0].keys():
@@ -111,6 +119,16 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função para contar os gêneros. Retorne uma lista.
 # Isso deveria retornar uma lista com [count_male, count_female] (exemplo: [10, 15] significa 10 Masculinos, 15 Femininos)
 def count_gender(data_list):
+    """Conta a quantidade de cada gênero.
+
+    ENTRADA:
+    data_list: todas as entradas(ou linhas) no formato lista de dicionarios
+
+    SAÍDA:
+    [male,female]: lista com dois items,o primeiro sendo a quantidade de homens e
+    o segundo a quantidade de mulheres.
+
+    """
     male = 0
     female = 0
     for i in range(len(data_list)):
@@ -137,6 +155,16 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função que pegue o gênero mais popular, e retorne este gênero como uma string.
 # Esperamos ver "Male", "Female", ou "Equal" como resposta.
 def most_popular_gender(data_list):
+    """Calcula o gênero mais popular
+
+    ENTRADA:
+    data_list: todas as entradas(ou linhas) no formato lista de dicionarios
+
+    SAÍDA:
+    answer: string contendo o gênero mais popular ou 'equal' se os gêneros são
+    igualmente populares.
+
+    """
     totais = count_gender(data_list)
     if totais[0] > totais[1]:
         answer = 'Male'
@@ -193,7 +221,7 @@ input("Aperte Enter para continuar...")
 male, female = count_gender(data_list)
 print("\nTAREFA 8: Por que a condição a seguir é Falsa?")
 print("male + female == len(data_list):", male + female == len(data_list))
-answer = """O somatorio do número de usuarios homens com o número de usuários mulheres é menor que o total de
+answer = """\nO somatorio do número de usuarios homens com o número de usuários mulheres é menor que o total de
 usuários. Isso ocorre porque alguns usuários estão sem essa informação na base de dados, possivelmente
 os usuários optaram por não informar"""
 print("resposta:", answer)
@@ -207,6 +235,7 @@ input("Aperte Enter para continuar...")
 # TAREFA 9
 # TODO: Ache a duração de viagem Mínima, Máxima, Média, e Mediana.
 # Você não deve usar funções prontas para isso, como max() e min().
+
 trip_duration_list = column_to_list(data_list, 2)
 min_trip =float(trip_duration_list[0])
 max_trip = float(trip_duration_list[0])
@@ -220,12 +249,14 @@ for i in trip_duration_list:
     soma+=i
 
 mean_trip = soma/len(trip_duration_list)
-lista_int =list(map(int,trip_duration_list))
+
+lista_int =list(map(int,trip_duration_list)) #retorna uma cópia com itens da list com tipo int
 lista_ordenada=sorted(lista_int)
 
 if(~len(lista_ordenada)%2): #se numero de usuarios é par enra no if
     temp = int(len(lista_ordenada)/2)
     median_trip = (float(lista_ordenada[temp]) + float(lista_ordenada[temp-1]))/2
+
 else: #se é impar entra no else
     temp = int((len(lista_ordenada) + 1)/2) #calculo do indice da mediana caso a lista/indice se iniciasse em um
     median_trip = float(lista_ordenada[temp-1]) #como se inicia em zero é necessário diminuir o indice em 1
@@ -245,6 +276,9 @@ input("Aperte Enter para continuar...")
 # Gênero é fácil porque nós temos apenas algumas opções. E quanto a start_stations? Quantas opções ele tem?
 # TODO: Verifique quantos tipos de start_stations nós temos, usando set()
 start_stations = set()
+for i in column_to_list(data_list, 3):
+    start_stations.add(i)
+
 
 print("\nTAREFA 10: Imprimindo as start stations:")
 print(len(start_stations))
@@ -265,11 +299,28 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função para contar tipos de usuários, sem definir os tipos
 # para que nós possamos usar essa função com outra categoria de dados.
 print("Você vai encarar o desafio? (yes ou no)")
-answer = "no"
+answer = "yes"
 
 def count_items(column_list):
+    """Conta os tipos de usuários ou outra categotia de dados
+
+    ENTRADA:
+    column_list: lista de todas as entradas em uma determinada coluna
+
+    SAÍDA:
+    item_types: tipos de usuários diferentes
+    count_items: quantidade de cada tipo de usuário
+    """
     item_types = []
     count_items = []
+
+    for i in column_list:
+        if i not in item_types:
+            item_types.append(i)
+            count_items.append(int(0))
+        index_in_items = item_types.index(i)
+        count_items[index_in_items]+=1
+
     return item_types, count_items
 
 
