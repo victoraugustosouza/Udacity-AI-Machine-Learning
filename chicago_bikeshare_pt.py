@@ -136,7 +136,14 @@ input("Aperte Enter para continuar...")
 # TODO: Crie uma função que pegue o gênero mais popular, e retorne este gênero como uma string.
 # Esperamos ver "Male", "Female", ou "Equal" como resposta.
 def most_popular_gender(data_list):
-    answer = ""
+    totais = count_gender(data_list)
+    if totais[0] > totais[1]:
+        answer = 'Male'
+    elif(totais[0] < totais[1]):
+        answer = 'Female'
+    else:
+        answer = 'Equal'
+
     return answer
 
 
@@ -163,6 +170,19 @@ plt.show(block=True)
 input("Aperte Enter para continuar...")
 # TAREFA 7
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
+
+user_list = column_to_list(data_list, -3)
+types = ["Subscriber", "Customer"]
+quantity[0] = user_list.count('Subscriber')
+quantity[1] = user_list.count('Customer')
+y_pos = list(range(len(types)))
+plt.bar(y_pos, quantity)
+plt.ylabel('Quantidade')
+plt.xlabel('Tipo de Usuário')
+plt.xticks(y_pos, types)
+plt.title('Quantidade por Tipo de Usuário')
+plt.show(block=True)
+
 print("\nTAREFA 7: Verifique o gráfico!")
 
 
@@ -172,7 +192,9 @@ input("Aperte Enter para continuar...")
 male, female = count_gender(data_list)
 print("\nTAREFA 8: Por que a condição a seguir é Falsa?")
 print("male + female == len(data_list):", male + female == len(data_list))
-answer = "Escreva sua resposta aqui."
+answer = """O somatorio do número de usuarios homens com o número de usuários mulheres é menor que o total de
+usuários. Isso ocorre porque alguns usuários estão sem essa informação na base de dados, possivelmente
+os usuários optaram por não informar"""
 print("resposta:", answer)
 
 # ------------ NÃO MUDE NENHUM CÓDIGO AQUI ------------
