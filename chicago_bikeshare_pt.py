@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # Vamos ler os dados como uma lista
 print("Lendo o documento...")
 data_list=[]
-with open("C:/Users/Victor/Desktop/Udacity/chicago_bikeshare_pt/chicago.csv", "r") as file_read:
+with open("chicago.csv", "r") as file_read:
     for row in csv.DictReader(file_read): #DictReader rotorna um iterable das linhas, mapeados para dicionarios ordenado.
         data_list.append(row)
 
