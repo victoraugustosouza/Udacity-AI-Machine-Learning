@@ -3,6 +3,7 @@
 # Começando com os imports
 import csv
 import matplotlib.pyplot as plt
+import statistics
 
 # Vamos ler os dados como uma lista
 print("Lendo o documento...")
@@ -207,11 +208,27 @@ input("Aperte Enter para continuar...")
 # TODO: Ache a duração de viagem Mínima, Máxima, Média, e Mediana.
 # Você não deve usar funções prontas para isso, como max() e min().
 trip_duration_list = column_to_list(data_list, 2)
-min_trip = 0.
-max_trip = 0.
-mean_trip = 0.
-median_trip = 0.
+min_trip =float(trip_duration_list[0])
+max_trip = float(trip_duration_list[0])
+soma=0.0
+for i in trip_duration_list:
+    i = float(i)
+    if i < min_trip:
+        min_trip = i
+    if i > max_trip:
+        max_trip = i
+    soma+=i
 
+mean_trip = soma/len(trip_duration_list)
+lista_int =list(map(int,trip_duration_list))
+lista_ordenada=sorted(lista_int)
+
+if(~len(lista_ordenada)%2): #se numero de usuarios é par enra no if
+    temp = int(len(lista_ordenada)/2)
+    median_trip = (float(lista_ordenada[temp]) + float(lista_ordenada[temp-1]))/2
+else: #se é impar entra no else
+    temp = int((len(lista_ordenada) + 1)/2) #calculo do indice da mediana caso a lista/indice se iniciasse em um
+    median_trip = float(lista_ordenada[temp-1]) #como se inicia em zero é necessário diminuir o indice em 1
 
 print("\nTAREFA 9: Imprimindo o mínimo, máximo, média, e mediana")
 print("Min: ", min_trip, "Max: ", max_trip, "Média: ", mean_trip, "Mediana: ", median_trip)
