@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # Vamos ler os dados como uma lista
 print("Lendo o documento...")
 data_list=[]
-with open("chicago.csv", "r") as file_read:
+with open("C:/Users/Victor/Desktop/Udacity/chicago_bikeshare_pt/chicago.csv", "r") as file_read:
     for row in csv.DictReader(file_read): #DictReader rotorna um iterable das linhas, mapeados para dicionarios ordenado.
         data_list.append(row)
 
@@ -112,6 +112,12 @@ input("Aperte Enter para continuar...")
 def count_gender(data_list):
     male = 0
     female = 0
+    for i in range(len(data_list)):
+            if(data_list[i]['Gender'] == 'Male'):
+                male+=1
+            elif(data_list[i]['Gender'] == 'Female'):
+                female+=1
+
     return [male, female]
 
 
