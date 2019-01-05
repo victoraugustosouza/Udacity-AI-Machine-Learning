@@ -30,10 +30,10 @@ input("Aperte Enter para continuar...")
 # TAREFA 1
 # TODO: Imprima as primeiras 20 linhas usando um loop para identificar os dados.
 print("\n\nTAREFA 1: Imprimindo as primeiras 20 amostras")
-for i in range(0,20):
-    print("Linha {}:\n".format(i+1))
-    for key in data_list[i].keys(): #Usar a lista de chaves para imprimir todos os pares chaves:valores.
-        print("{}:{}".format(key,data_list[i][str(key)]))
+for entrada in range(0,20):
+    print("Linha {}:\n".format(entrada+1))
+    for key in data_list[entrada].keys(): #Usar a lista de chaves para imprimir todos os pares chaves:valores.
+        print("{}:{}".format(key,data_list[entrada][str(key)]))
     print('\n')
 # Vamos mudar o data_list para remover o cabeçalho dele.
 #data_list = data_list[1:] desnecessário
@@ -46,10 +46,10 @@ input("Aperte Enter para continuar...")
 # TODO: Imprima o `gênero` das primeiras 20 linhas
 print("\nTAREFA 2: Imprimindo o gênero das primeiras 20 amostras")
 
-for i in range(0,20):
-    print("Linha {}:".format(i+1))
-    if(data_list[i]['Gender']):
-        print("Gender:{}\n".format(data_list[i]['Gender']))
+for entrada in range(0,20):
+    print("Linha {}:".format(entrada+1))
+    if(data_list[entrada]['Gender']):
+        print("Gender:{}\n".format(data_list[entrada]['Gender']))
     else:
         print("Sem informação disponível\n")
 
@@ -99,10 +99,10 @@ input("Aperte Enter para continuar...")
 male = 0
 female = 0
 gender_list = column_to_list(data_list, -2)
-for i in gender_list:
-    if(i == 'Male'):
+for genero in gender_list:
+    if(genero == 'Male'):
         male+=1
-    elif(i=='Female'):
+    elif(genero =='Female'):
         female+=1
 
 # Verificando o resultado
@@ -131,10 +131,10 @@ def count_gender(data_list):
     """
     male = 0
     female = 0
-    for i in range(len(data_list)):
-            if(data_list[i]['Gender'] == 'Male'):
+    for registro in range(len(data_list)):
+            if(data_list[registro]['Gender'] == 'Male'):
                 male+=1
-            elif(data_list[i]['Gender'] == 'Female'):
+            elif(data_list[registro]['Gender'] == 'Female'):
                 female+=1
 
     return [male, female]
@@ -199,11 +199,12 @@ plt.show(block=True)
 input("Aperte Enter para continuar...")
 # TAREFA 7
 # TODO: Crie um gráfico similar para user_types. Tenha certeza que a legenda está correta.
-
+quantity=[]
 user_list = column_to_list(data_list, -3)
-types = ["Subscriber", "Customer"]
-quantity[0] = user_list.count('Subscriber')
-quantity[1] = user_list.count('Customer')
+types = ["Subscriber", "Customer","Dependent"]
+quantity.append(user_list.count('Subscriber'))
+quantity.append(user_list.count('Customer'))
+quantity.append(user_list.count('Dependent'))
 y_pos = list(range(len(types)))
 plt.bar(y_pos, quantity)
 plt.ylabel('Quantidade')
@@ -240,20 +241,20 @@ trip_duration_list = column_to_list(data_list, 2)
 min_trip =float(trip_duration_list[0])
 max_trip = float(trip_duration_list[0])
 soma=0.0
-for i in trip_duration_list:
-    i = float(i)
-    if i < min_trip:
-        min_trip = i
-    if i > max_trip:
-        max_trip = i
-    soma+=i
+for tempo_viagem in trip_duration_list:
+    tempo_viagem = float(tempo_viagem)
+    if tempo_viagem < min_trip:
+        min_trip = tempo_viagem
+    if tempo_viagem > max_trip:
+        max_trip = tempo_viagem
+    soma+=tempo_viagem
 
 mean_trip = soma/len(trip_duration_list)
 
 lista_int =list(map(int,trip_duration_list)) #retorna uma cópia com itens da list com tipo int
 lista_ordenada=sorted(lista_int)
 
-if(~len(lista_ordenada)%2): #se numero de usuarios é par enra no if
+if(~len(lista_ordenada)%2): #se numero de usuarios é par entra no if
     temp = int(len(lista_ordenada)/2)
     median_trip = (float(lista_ordenada[temp]) + float(lista_ordenada[temp-1]))/2
 
@@ -276,8 +277,8 @@ input("Aperte Enter para continuar...")
 # Gênero é fácil porque nós temos apenas algumas opções. E quanto a start_stations? Quantas opções ele tem?
 # TODO: Verifique quantos tipos de start_stations nós temos, usando set()
 start_stations = set()
-for i in column_to_list(data_list, 3):
-    start_stations.add(i)
+for station in column_to_list(data_list, 3):
+    start_stations.add(station)
 
 
 print("\nTAREFA 10: Imprimindo as start stations:")
@@ -314,11 +315,11 @@ def count_items(column_list):
     item_types = []
     count_items = []
 
-    for i in column_list:
-        if i not in item_types:
-            item_types.append(i)
+    for item in column_list:
+        if item not in item_types:
+            item_types.append(item)
             count_items.append(int(0))
-        index_in_items = item_types.index(i)
+        index_in_items = item_types.index(item)
         count_items[index_in_items]+=1
 
     return item_types, count_items
